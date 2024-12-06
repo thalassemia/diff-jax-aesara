@@ -7,7 +7,7 @@ an optimization problem in the Covert Lab's whole cell model.
 
 Create a Python virtual environment with Python 3.11 or earlier. Then, install the requirements:
 
-    pip install -r requirements
+    pip install -r requirements.txt
 
 ### Running
 
