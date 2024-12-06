@@ -1,0 +1,6 @@
+aesara==2.9.3
+numpy==1.26.4
+jax
+pytest
+scipy
+setuptools==73.0.1
