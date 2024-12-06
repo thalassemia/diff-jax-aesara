@@ -170,7 +170,7 @@ def test_edge_cases(test_data, km_counts):
 def test_optimization(test_data, km_counts):
     # Simple Jax
     start_time = time.time()
-    jax_loss, jax_jacobian, jax_res, _ = jax_simple(*test_data)
+    jax_loss, jax_jacobian, _, _ = jax_simple(*test_data)
     jax_simple_sol = scipy.optimize.minimize(
         jax_loss, np.log(km_counts), jac=jax_jacobian
     )
@@ -185,7 +185,7 @@ def test_optimization(test_data, km_counts):
 
     # Aesara
     start_time = time.time()
-    a_loss, a_jacobian, _, _ = aesara(*test_data)
+    a_loss, a_jacobian, a_res, _ = aesara(*test_data)
     aesara_sol = scipy.optimize.root(a_loss, km_counts, jac=a_jacobian)
     print("Aesara finished in: ", time.time() - start_time)
 
@@ -201,8 +201,8 @@ def test_optimization(test_data, km_counts):
         ("Jax faithful", "Aesara"),
     ]
     for function_one, function_two in combos:
-        function_one_res = jax_res(solutions[function_one])
-        function_two_res = jax_res(solutions[function_two])
+        function_one_res = a_res(solutions[function_one])
+        function_two_res = a_res(solutions[function_two])
         np.testing.assert_allclose(function_one_res, function_two_res, atol=1e-6)
         diff = np.max(np.abs(function_one_res - function_two_res))
         print(f"{function_one} - {function_two} max abs. diff. in residuals: {diff}")
