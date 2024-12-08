@@ -1,4 +1,5 @@
 aesara==2.9.3
+autograd
 numpy==1.26.4
 jax
 pytest
